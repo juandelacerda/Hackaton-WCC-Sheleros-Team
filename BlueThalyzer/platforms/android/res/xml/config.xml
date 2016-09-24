@@ -4,6 +4,13 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Uber">
+        <param name="android-package" value="ca.kloppmagic.plugin.uber.Uber" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Notification">
+        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+    </feature>
     <name>HelloCordova</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -21,8 +28,4 @@
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
-    <feature name="Uber">
-        <param name="android-package" value="ca.kloppmagic.plugin.uber.Uber" />
-        <param name="onload" value="true" />
-    </feature>
 </widget>

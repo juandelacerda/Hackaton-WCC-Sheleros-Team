@@ -16,6 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -27,6 +30,55 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        $('#uberBtn').on('click',this.uberAction);
+    },
+
+    uberAction: function(){
+    //  navigator.notification.alert('Uber action');
+      var home='';
+
+      $.ajax({
+        method:'GET',
+        url:'https://api.uber.com/v1/places/home',
+        statusCode:{
+          200: function(){
+            navigator.notification.alert('code 200');
+          },
+          404: function(){
+            navigator.notification.alert('code 404');
+          },
+          401:function(){
+            navigator.notification.alert('unautorized');
+          },
+          422:function(){
+            navigator.notification.alert('unknow address');
+          },
+
+        }
+      })
+      .done(function(data){
+        navigator.notification.alert('Done'+data);
+         home= data.address;
+         var uberData = {
+             clientId: "YOUR_CLIENT_ID",
+             toLatitude: "37.802374",
+             toLongitude: "-122.405818",
+             toAddress: "1 Telegraph Hill Blvd, San Francisco, CA 94133",
+             toNickname: "Coit Tower",
+             fromLatitude: "37.775818",
+             fromLongitude: "-122.418028",
+             fromNickname: 'home',
+             fromAddress: "1455 Market St, San Francisco, CA 94103",
+             productId: "a1111c8c-c720-46c3-8534-2fcdd730040d"
+         };
+         window.uber(uberData, function(error) {
+             navigator.notification.alert('Uber error');
+         });
+
+      }).fail(function(err){
+          navigator.notification.alert(err);
+      });
+      navigator.notification.alert('Uber action');
     },
     // deviceready Event Handler
     //
