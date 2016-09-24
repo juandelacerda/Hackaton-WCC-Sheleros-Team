@@ -18,24 +18,15 @@
 
     <script type="text/javascript" charset="utf-8" src="lib/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>  
+    <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>
 
-	
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 
 </head>
 
 <body>
-
-    <div id="splashscreen" class='ui-loader heavy'>
-        Bluethalyzer
-        <br>
-        <br>
-        <span class='ui-icon ui-icon-loading spin'></span>
-        <h1>Cargando...</h1>
-    </div>
-
     <div class="view">
         <header>
             <h1>Bluethalyzer</h1>
@@ -46,14 +37,14 @@
             <!--Tab View Pages-->
             <div class="panel main" data-title="Bluethalyzer" id="tab1" data-selected="true">
                 <div>Sopla<br/><br/>
-                <a href="#case0" onclick="$.afui.clearHistory()"><img src="img/breath.png"/></a>   
+                <a href="#case0" onclick="$.afui.clearHistory()"><img src="img/breath.png"/></a>
 
                 </div>
             </div>
-            
+
             <div class="panel main" data-title="Bluethalyzer" id="case0">
                 <div>Evaluando nivel de alcohol<br/><br/>
-                    <a href="#case1" onclick="$.afui.clearHistory()"><img src="img/loading.gif"/></a>   
+                    <a href="#case1" onclick="$.afui.clearHistory()"><img src="img/loading.gif"/></a>
 
                 </div>
             </div>
@@ -74,14 +65,14 @@
 
             <div class="panel config" data-title="Configuración" id="tab2">
                 <br/>
-                <input name="nombre" type="text" placeholder="Nombre del titular" />                 
+                <input name="nombre" type="text" placeholder="Nombre del titular" />
                 <br>
-                <input name="nombre" type="text" placeholder="Número tel. / Referencia 1" />  
-                <input name="nombre" type="text" placeholder="Número tel. / Referencia 2" />  
+                <input name="nombre" type="text" placeholder="Número tel. / Referencia 1" />
+                <input name="nombre" type="text" placeholder="Número tel. / Referencia 2" />
 
                 <a class="button block" href="#" id="login">Guardar cambios</a>
-            </div>            
-            
+            </div>
+
         </div>
 
         <footer>
