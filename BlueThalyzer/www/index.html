@@ -15,6 +15,9 @@
     <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />
     <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />
     <link rel="stylesheet" type="text/css" href="lib/custom.css" />
+    <link rel="stylesheet" type="text/css" href="lib/custom.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 
     <script type="text/javascript" charset="utf-8" src="lib/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
@@ -23,13 +26,16 @@
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 
 </head>
 
 <body>
     <div class="view">
         <header>
-            <h1>Bluethalyzer</h1>
+            <h1 style="margin-top:-1px;">Bluethalyzer</h1>
         </header>
 
         <div class="pages">
@@ -70,7 +76,10 @@
                 <input name="nombre" type="text" placeholder="Número tel. / Referencia 1" />
                 <input name="nombre" type="text" placeholder="Número tel. / Referencia 2" />
 
-                <a class="button block" href="#" id="login">Guardar cambios</a>
+                <a class="col-xs-6 btn btn-default" href="#" id="login" style="margin-right:;">Cancelar</a>
+                <a class="col-xs-6 btn btn-primary btn-default" input type="submit" href="#" id="login">Guardar cambios</a>
+
+
             </div>
 
         </div>
