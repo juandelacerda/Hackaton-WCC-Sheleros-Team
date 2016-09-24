@@ -5,13 +5,64 @@ module.exports = [
         "file": "plugins/ca.kloppmagic.plugin.uber/uber.js",
         "pluginId": "ca.kloppmagic.plugin.uber",
         "runs": true
+    },
+    {
+        "id": "cordova-plugin-dialogs.notification",
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "id": "cordova-plugin-dialogs.notification_android",
+        "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.geolocation",
+        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "navigator.geolocation"
+        ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.PositionError",
+        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "runs": true
+    },
+    {
+        "id": "plugin.google.maps.phonegap-googlemaps-plugin",
+        "file": "plugins/plugin.google.maps/www/googlemaps-cdv-plugin.js",
+        "pluginId": "plugin.google.maps",
+        "clobbers": [
+            "plugin.google.maps"
+        ]
+    },
+    {
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "pluginId": "cordova-sqlite-storage",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.3.0",
-    "ca.kloppmagic.plugin.uber": "0.2.5"
+    "ca.kloppmagic.plugin.uber": "0.2.5",
+    "cordova-plugin-dialogs": "1.3.0",
+    "cordova-plugin-compat": "1.0.0",
+    "cordova-plugin-geolocation": "2.3.0",
+    "plugin.google.maps": "1.3.9",
+    "cordova-sqlite-storage": "1.4.7"
 };
 // BOTTOM OF METADATA
 });
