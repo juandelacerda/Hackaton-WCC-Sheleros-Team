@@ -25,48 +25,62 @@ var homePosition;
 
 
 function googleMaps(){
-  // db = window.sqlitePlugin.openDatabase({
-  //     name: 'my.db',
-  //     location: 'default',
-  //     androidDatabaseImplementation: 2,
-  //     androidLockWorkaround: 1
-  // });
-
-  // db.transaction(function(tx){
-  //      tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng)');
-  //      tx.executeSql('INSERT INTO config VALUES (?,?)', ['Alice', 101]);
-  //       //tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
-  //   }, function(error) {
-  //      console.log('Transaction ERROR: ' + error.message);
-  //    }, function() {
-  //      console.log('Populated database OK');
+  db = window.sqlitePlugin.openDatabase({
+      name: 'my.db',
+      location: 'default',
+      androidDatabaseImplementation: 3,
+      androidLockWorkaround: 1
   });
 
+  db.transaction(function(tx){
+       tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
+        //tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+    }, function(error) {
+      navigator.notification.alert("error");
+       console.log('Transaction ERROR: ' + error.message);
+     }, function() {
+       navigator.notification.alert("success");
+       console.log('Populated database OK');
+  });
+  navigator.notification.alert("onMapReady");
   var div = document.getElementById("divMap");
   map =plugin.google.maps.Map.getMap(div);
+
   map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
 }
 
 function onMapReady() {
    var button = document.getElementById("addHome");
    button.addEventListener("click", onAddHomeClicked);
+
    goToCurrentPosition();
 }
 
 function onAddHomeClicked(){
   mark.getPosition(function(position){
     homePosition=position;
-    navigator.notification.alert("homePosition"+homePosition);
-    // db.transaction(function(tx){
-    //      tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng)');
-    //      tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', [position.coords.latitude, position.coords.longitude ]);
-    //     //  tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
-    //   }, function(error) {
-    //      console.log('Transaction ERROR: ' + error.message);
-    //    }, function() {
-    //      console.log('Populated database OK');
-    // });
+    db.transaction(function(tx){
+    //     tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
+         tx.executeSql('INSERT INTO config VALUES (?,?,?,?,?,?)', [homePosition.lat, homePosition.lng, 'Juan', 'Zheng', '6642879876', '123456789' ]);
+        //  tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+      },
+      function(error) {
+         console.log('Transaction ERROR: ' + error.message);
+          navigator.notification.alert('Error');
+      },
+      function() {
+        navigator.notification.alert('addhome select');
+    });    
   });
+    
+    
+    db.transaction(function(tx){    
+        //tx.executeSql('SELECT * FROM config', [], function(tx, rs) {
+          //alert('Record count (expected to be 2): ' + rs);
+    alert('select');    
+    }, function(tx, error) {
+            alert('SELECT error: ' + error.message);
+        });
 
 }
 
@@ -96,16 +110,6 @@ function goToCurrentPosition() {
         animation: plugin.google.maps.Animation.BOUNCE
       }, function(marker) {
         mark=marker;
-        // Show the info window
-        //marker.showInfoWindow();
-
-        // Catch the click event
-        // marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-        //
-        //   // To do something...
-        //   //alert("Hello world!");
-        //
-        // });
       });
     });
 
@@ -128,7 +132,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', googleMaps, false);
-        document.addEventListener('deviceready',)
+
         $('#uberBtn').on('click',this.uberAction);
     },
 

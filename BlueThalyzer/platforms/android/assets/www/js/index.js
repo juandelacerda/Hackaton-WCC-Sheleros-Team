@@ -33,16 +33,12 @@ function googleMaps(){
   });
 
   db.transaction(function(tx){
-       tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
-        //tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+       tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, name, lastname, phoneNum1, phoneNum2)');
     }, function(error) {
-      navigator.notification.alert("error");
        console.log('Transaction ERROR: ' + error.message);
      }, function() {
-       navigator.notification.alert("success");
        console.log('Populated database OK');
   });
-  navigator.notification.alert("onMapReady");
   var div = document.getElementById("divMap");
   map =plugin.google.maps.Map.getMap(div);
 
@@ -60,28 +56,28 @@ function onAddHomeClicked(){
   mark.getPosition(function(position){
     homePosition=position;
     db.transaction(function(tx){
-    //     tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
-         tx.executeSql('INSERT INTO config VALUES (home_lat, home_lng, nombre, apellido, tel1, tel2)', [position.coords.latitude, position.coords.longitude,'Juan','Zheng','6642879876','123456789' ]);
-        //  tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+        console.log('BD Access'); 
+        tx.executeSql('INSERT INTO config VALUES (?,?,?,?,?,?)', [homePosition.lat, homePosition.lng, 'Juan', 'Zheng', '6642879876', '123456789' ]);
       },
       function(error) {
-         console.log('Transaction ERROR: ' + error.message);
-          navigator.notification.alert('Error');
+          console.log('Error');
       },
       function() {
-        navigator.notification.alert('addhome select');
-        // db.transaction(function(tx){
-        //   tx.executeSql('SELECT * AS data FROM config', [], function(tx, rs) {
-        //     navigator.notification.alert('Record count (expected to be 2): ' + rs.rows.item(0).data);
-        //   },
-        //   function(tx, error) {
-        //     console.log('SELECT error: ' + error.message);
-        //   });
-        //
-        // });
-    });
+        console.log('addhome select');
+    });    
   });
 
+    db.transaction(function(tx) {    
+        tx.executeSql('SELECT name, lastname, phoneNum1, phoneNum2, home_lat, home_lng FROM config', [], querySuccess, errorCB);
+    });
+}
+
+function querySuccess(tx, results) {
+    alert("Coordenadas = " + results.rows.item(0)['home_lat'] + ', ' + results.rows.item(0)['home_lng']);
+}
+
+function errorCB(err) {
+    console.log("Error processing SQL: "+err.code);
 }
 
 function goToCurrentPosition() {
@@ -152,7 +148,7 @@ var app = {
             productId: "a1111c8c-c720-46c3-8534-2fcdd730040d"
         };
          window.uber(uberData, function(error) {
-             navigator.notification.alert('Uber error'+error);
+             console.log('Uber error'+error);
          });
       });
     },
