@@ -22,6 +22,9 @@
         "plugin.google.maps": {
             "API_KEY_FOR_ANDROID": "AIzaSyAbtuhUr3g10T8bI3a7vYDcUrEy4YPsplQ",
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {

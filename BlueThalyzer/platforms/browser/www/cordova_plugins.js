@@ -23,6 +23,14 @@ module.exports = [
         "clobbers": [
             "plugin.google.maps"
         ]
+    },
+    {
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "pluginId": "cordova-sqlite-storage",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -33,7 +41,8 @@ module.exports.metadata =
     "cordova-plugin-dialogs": "1.3.0",
     "cordova-plugin-compat": "1.0.0",
     "cordova-plugin-geolocation": "2.3.0",
-    "plugin.google.maps": "1.3.9"
+    "plugin.google.maps": "1.3.9",
+    "cordova-sqlite-storage": "1.4.7"
 }
 // BOTTOM OF METADATA
 });

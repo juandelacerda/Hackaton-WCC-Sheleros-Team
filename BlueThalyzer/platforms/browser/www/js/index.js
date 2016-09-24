@@ -17,52 +17,104 @@
  * under the License.
  */
 var map;
+var mark;
+var db;
+var currentPosition;
+var homePosition;
 
-//
-// function googleMaps(){
-//   div=$('#divMap');
-//   map =plugin.google.maps.Map.getMap(div);
-//   map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
-// }
-//
-// function onMapReady() {
-//   var button = document.getElementById("button");
-//   button.addEventListener("click", onBtnClicked);
-// }
-//
-// function onBtnClicked() {
-//
-//   // Move to the position with animation
-//   map.animateCamera({
-//     target: {lat: 37.422359, lng: -122.084344},
-//     zoom: 17,
-//     tilt: 60,
-//     bearing: 140,
-//     duration: 5000
-//   }, function() {
-//
-//     // Add a maker
-//     map.addMarker({
-//       position: {lat: 37.422359, lng: -122.084344},
-//       title: "Welecome to \n" +
-//              "Cordova GoogleMaps plugin for iOS and Android",
-//       snippet: "This plugin is awesome!",
-//       animation: plugin.google.maps.Animation.BOUNCE
-//     }, function(marker) {
-//
-//       // Show the info window
-//       marker.showInfoWindow();
-//
-//       // Catch the click event
-//       marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-//
-//         // To do something...
-//         alert("Hello world!");
-//
-//       });
-//     });
-//   });
-// }
+
+
+function googleMaps(){
+  // db = window.sqlitePlugin.openDatabase({
+  //     name: 'my.db',
+  //     location: 'default',
+  //     androidDatabaseImplementation: 2,
+  //     androidLockWorkaround: 1
+  // });
+
+  // db.transaction(function(tx){
+  //      tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng)');
+  //      tx.executeSql('INSERT INTO config VALUES (?,?)', ['Alice', 101]);
+  //       //tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+  //   }, function(error) {
+  //      console.log('Transaction ERROR: ' + error.message);
+  //    }, function() {
+  //      console.log('Populated database OK');
+  });
+
+  var div = document.getElementById("divMap");
+  map =plugin.google.maps.Map.getMap(div);
+  map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+}
+
+function onMapReady() {
+   var button = document.getElementById("addHome");
+   button.addEventListener("click", onAddHomeClicked);
+   goToCurrentPosition();
+}
+
+function onAddHomeClicked(){
+  mark.getPosition(function(position){
+    homePosition=position;
+    navigator.notification.alert("homePosition"+homePosition);
+    // db.transaction(function(tx){
+    //      tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng)');
+    //      tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', [position.coords.latitude, position.coords.longitude ]);
+    //     //  tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+    //   }, function(error) {
+    //      console.log('Transaction ERROR: ' + error.message);
+    //    }, function() {
+    //      console.log('Populated database OK');
+    // });
+  });
+
+}
+
+function goToCurrentPosition() {
+  navigator.geolocation.getCurrentPosition(function(position){
+    map.animateCamera({
+      target: {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      },
+      zoom: 17,
+      tilt: 0,
+      bearing: 50,
+      duration: 1000
+    }, function() {
+
+      // Add a maker
+      map.addMarker({
+        position: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        },
+        draggable: true,
+        title: "Welecome to \n" +
+               "Cordova GoogleMaps plugin for iOS and Android",
+        snippet: "This plugin is awesome!",
+        animation: plugin.google.maps.Animation.BOUNCE
+      }, function(marker) {
+        mark=marker;
+        // Show the info window
+        //marker.showInfoWindow();
+
+        // Catch the click event
+        // marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+        //
+        //   // To do something...
+        //   //alert("Hello world!");
+        //
+        // });
+      });
+    });
+
+  });
+
+
+  // Move to the position with animation
+
+}
 
 
 var app = {
@@ -75,17 +127,18 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-      //  document.addEventListener('deviceready', googleMaps, false);
+        document.addEventListener('deviceready', googleMaps, false);
+        document.addEventListener('deviceready',)
         $('#uberBtn').on('click',this.uberAction);
     },
 
     uberAction: function(){
       navigator.geolocation.getCurrentPosition(function(position){
-        navigator.notification.alert(position.coords.latitude);
+
         var uberData = {
             clientId: "YOUR_CLIENT_ID",
-            toLatitude: "37.802374",
-            toLongitude: "-122.405818",
+            toLatitude: homePosition.lat,
+            toLongitude: homePosition.lng,
             toAddress: "",
             toNickname: "Home",
             fromLatitude: position.coords.latitude,
@@ -98,37 +151,6 @@ var app = {
              navigator.notification.alert('Uber error'+error);
          });
       });
-
-      // var home='';
-      //
-      //
-      // $.ajax({
-      //   method:'GET',
-      //   url:'https://api.uber.com/v1/places/home',
-      //   statusCode:{
-      //     200: function(){
-      //       navigator.notification.alert('code 200');
-      //     },
-      //     404: function(){
-      //       navigator.notification.alert('code 404');
-      //     },
-      //     401:function(){
-      //       //navigator.notification.alert('unautorized');
-      //     },
-      //     422:function(){
-      //       navigator.notification.alert('unknow address');
-      //     },
-      //
-      //   }
-      // })
-      // .done(function(data){
-      // //  navigator.notification.alert('Done'+data);
-      //    home= data.address;
-      //
-      //
-      // }).fail(function(err){
-      //     //navigator.notification.alert(err);
-      // });
     },
 
 
@@ -149,7 +171,6 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
     }
 };
 
