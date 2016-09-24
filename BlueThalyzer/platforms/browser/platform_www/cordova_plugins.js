@@ -15,6 +15,14 @@ module.exports = [
         "merges": [
             "navigator.notification"
         ]
+    },
+    {
+        "file": "plugins/plugin.google.maps/www/googlemaps-cdv-plugin.js",
+        "id": "plugin.google.maps.phonegap-googlemaps-plugin",
+        "pluginId": "plugin.google.maps",
+        "clobbers": [
+            "plugin.google.maps"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -22,7 +30,10 @@ module.exports.metadata =
 {
     "ca.kloppmagic.plugin.uber": "0.2.5",
     "cordova-plugin-whitelist": "1.3.0",
-    "cordova-plugin-dialogs": "1.3.0"
+    "cordova-plugin-dialogs": "1.3.0",
+    "cordova-plugin-compat": "1.0.0",
+    "cordova-plugin-geolocation": "2.3.0",
+    "plugin.google.maps": "1.3.9"
 }
 // BOTTOM OF METADATA
 });

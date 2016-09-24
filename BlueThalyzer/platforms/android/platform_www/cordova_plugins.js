@@ -21,6 +21,28 @@ module.exports = [
         "merges": [
             "navigator.notification"
         ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.geolocation",
+        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "navigator.geolocation"
+        ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.PositionError",
+        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "runs": true
+    },
+    {
+        "id": "plugin.google.maps.phonegap-googlemaps-plugin",
+        "file": "plugins/plugin.google.maps/www/googlemaps-cdv-plugin.js",
+        "pluginId": "plugin.google.maps",
+        "clobbers": [
+            "plugin.google.maps"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -28,7 +50,10 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.3.0",
     "ca.kloppmagic.plugin.uber": "0.2.5",
-    "cordova-plugin-dialogs": "1.3.0"
+    "cordova-plugin-dialogs": "1.3.0",
+    "cordova-plugin-compat": "1.0.0",
+    "cordova-plugin-geolocation": "2.3.0",
+    "plugin.google.maps": "1.3.9"
 };
 // BOTTOM OF METADATA
 });

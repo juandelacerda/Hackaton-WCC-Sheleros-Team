@@ -16,7 +16,53 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var map;
 
+//
+// function googleMaps(){
+//   div=$('#divMap');
+//   map =plugin.google.maps.Map.getMap(div);
+//   map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+// }
+//
+// function onMapReady() {
+//   var button = document.getElementById("button");
+//   button.addEventListener("click", onBtnClicked);
+// }
+//
+// function onBtnClicked() {
+//
+//   // Move to the position with animation
+//   map.animateCamera({
+//     target: {lat: 37.422359, lng: -122.084344},
+//     zoom: 17,
+//     tilt: 60,
+//     bearing: 140,
+//     duration: 5000
+//   }, function() {
+//
+//     // Add a maker
+//     map.addMarker({
+//       position: {lat: 37.422359, lng: -122.084344},
+//       title: "Welecome to \n" +
+//              "Cordova GoogleMaps plugin for iOS and Android",
+//       snippet: "This plugin is awesome!",
+//       animation: plugin.google.maps.Animation.BOUNCE
+//     }, function(marker) {
+//
+//       // Show the info window
+//       marker.showInfoWindow();
+//
+//       // Catch the click event
+//       marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+//
+//         // To do something...
+//         alert("Hello world!");
+//
+//       });
+//     });
+//   });
+// }
 
 
 var app = {
@@ -29,57 +75,64 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+      //  document.addEventListener('deviceready', googleMaps, false);
         $('#uberBtn').on('click',this.uberAction);
     },
 
     uberAction: function(){
-    //  navigator.notification.alert('Uber action');
-      var home='';
-
-      $.ajax({
-        method:'GET',
-        url:'http://www.thomas-bayer.com/sqlrest/CUSTOMER',//'https://api.uber.com/v1/places/home',
-        statusCode:{
-          200: function(){
-            navigator.notification.alert('code 200');
-          },
-          404: function(){
-            navigator.notification.alert('code 404');
-          },
-          401:function(){
-            navigator.notification.alert('unautorized');
-          },
-          422:function(){
-            navigator.notification.alert('unknow address');
-          },
-
-        }
-      })
-      .done(function(data){
-        navigator.notification.alert('Done'+data);
-         home= data.address;
-         var uberData = {
-             clientId: "YOUR_CLIENT_ID",
-             toLatitude: "37.802374",
-             toLongitude: "-122.405818",
-             toAddress: "1 Telegraph Hill Blvd, San Francisco, CA 94133",
-             toNickname: "Coit Tower",
-             fromLatitude: "37.775818",
-             fromLongitude: "-122.418028",
-             fromNickname: 'home',
-             fromAddress: "1455 Market St, San Francisco, CA 94103",
-             productId: "a1111c8c-c720-46c3-8534-2fcdd730040d"
-         };
+      navigator.geolocation.getCurrentPosition(function(position){
+        navigator.notification.alert(position.coords.latitude);
+        var uberData = {
+            clientId: "YOUR_CLIENT_ID",
+            toLatitude: "37.802374",
+            toLongitude: "-122.405818",
+            toAddress: "",
+            toNickname: "Home",
+            fromLatitude: position.coords.latitude,
+            fromLongitude: position.coords.longitude,
+            fromNickname: 'Actual position',
+            fromAddress: "",
+            productId: "a1111c8c-c720-46c3-8534-2fcdd730040d"
+        };
          window.uber(uberData, function(error) {
-             navigator.notification.alert('Uber error');
+             navigator.notification.alert('Uber error'+error);
          });
-
-      }).fail(function(err){
-          navigator.notification.alert(err);
       });
-      navigator.notification.alert('Uber action');
+
+      // var home='';
+      //
+      //
+      // $.ajax({
+      //   method:'GET',
+      //   url:'https://api.uber.com/v1/places/home',
+      //   statusCode:{
+      //     200: function(){
+      //       navigator.notification.alert('code 200');
+      //     },
+      //     404: function(){
+      //       navigator.notification.alert('code 404');
+      //     },
+      //     401:function(){
+      //       //navigator.notification.alert('unautorized');
+      //     },
+      //     422:function(){
+      //       navigator.notification.alert('unknow address');
+      //     },
+      //
+      //   }
+      // })
+      // .done(function(data){
+      // //  navigator.notification.alert('Done'+data);
+      //    home= data.address;
+      //
+      //
+      // }).fail(function(err){
+      //     //navigator.notification.alert(err);
+      // });
     },
+
+
+
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
