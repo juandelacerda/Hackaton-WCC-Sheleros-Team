@@ -25,6 +25,12 @@
         },
         "cordova-sqlite-storage": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cz.blocshop.socketsforcordova": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {

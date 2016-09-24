@@ -21,10 +21,26 @@ var mark;
 var db;
 var currentPosition;
 var homePosition;
+var homeContact={};
 
+
+function pickNewHomeContact(){
+  navigator.contacts.pickContact(function(contact){
+        console.log('The following contact has been selected:' + JSON.stringify(contact));
+        navigator.notification.alert(contact);
+        homeContact.name=contact.displayName;
+        homeContact.phone=contact.phoneNumbers[0].value;
+        navigator.notification.alert(homeContact);
+    },function(err){
+        console.log('Error: ' + err);
+        navigator.notification.alert(err);
+    });
+
+}
 
 
 function googleMaps(){
+
   db = window.sqlitePlugin.openDatabase({
       name: 'my.db',
       location: 'default',
@@ -33,16 +49,19 @@ function googleMaps(){
   });
 
   db.transaction(function(tx){
-       tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
+      // tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
+       //tx.executeSql('INSERT INTO config VALUES (?, ?, ?, ?, ?, ?)', [position.coords.latitude, position.coords.longitude,'Juan','Zheng','6642879876','123456789' ]);
+
         //tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
     }, function(error) {
       navigator.notification.alert("error");
        console.log('Transaction ERROR: ' + error.message);
+
      }, function() {
-       navigator.notification.alert("success");
+       //navigator.notification.alert("success");
        console.log('Populated database OK');
   });
-  navigator.notification.alert("onMapReady");
+  //navigator.notification.alert("onMapReady");
   var div = document.getElementById("divMap");
   map =plugin.google.maps.Map.getMap(div);
 
@@ -60,13 +79,13 @@ function onAddHomeClicked(){
   mark.getPosition(function(position){
     homePosition=position;
     db.transaction(function(tx){
-    //     tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
-         tx.executeSql('INSERT INTO config VALUES (home_lat, home_lng, nombre, apellido, tel1, tel2)', [position.coords.latitude, position.coords.longitude,'Juan','Zheng','6642879876','123456789' ]);
+        //  tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
+        //  tx.executeSql('INSERT INTO config VALUES (?, ?, ?, ?, ?, ?)', [position.coords.latitude, position.coords.longitude,'Juan','Zheng','6642879876','123456789' ]);
         //  tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
       },
       function(error) {
          console.log('Transaction ERROR: ' + error.message);
-          navigator.notification.alert('Error');
+         navigator.notification.alert('Error');
       },
       function() {
         navigator.notification.alert('addhome select');
@@ -115,11 +134,7 @@ function goToCurrentPosition() {
 
   });
 
-
-  // Move to the position with animation
-
 }
-
 
 var app = {
     // Application Constructor
@@ -132,8 +147,8 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', googleMaps, false);
-
-        $('#uberBtn').on('click',this.uberAction);
+          $('#uberBtn').on('click',this.uberAction);
+          $('#homeContact').on('click',pickNewHomeContact);
     },
 
     uberAction: function(){
