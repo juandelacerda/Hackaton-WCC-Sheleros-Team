@@ -27,6 +27,7 @@ var homePosition;
 
 
 function googleMaps(){
+<<<<<<< HEAD
   var socket = new Socket();
   socket.open(
     "192.168.1.7",
@@ -46,6 +47,8 @@ function googleMaps(){
       navigator.notification.alert("fghjk");
     };
 
+=======
+>>>>>>> a6c690db4564d2064dd1116af51247e1191f8cf0
   db = window.sqlitePlugin.openDatabase({
       name: 'my.db',
       location: 'default',
@@ -54,19 +57,31 @@ function googleMaps(){
   });
 
   db.transaction(function(tx){
+<<<<<<< HEAD
       // tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
        //tx.executeSql('INSERT INTO config VALUES (?, ?, ?, ?, ?, ?)', [position.coords.latitude, position.coords.longitude,'Juan','Zheng','6642879876','123456789' ]);
 
+=======
+       tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
+>>>>>>> a6c690db4564d2064dd1116af51247e1191f8cf0
         //tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
     }, function(error) {
       navigator.notification.alert("error");
        console.log('Transaction ERROR: ' + error.message);
+<<<<<<< HEAD
 
      }, function() {
        //navigator.notification.alert("success");
        console.log('Populated database OK');
   });
   //navigator.notification.alert("onMapReady");
+=======
+     }, function() {
+       navigator.notification.alert("success");
+       console.log('Populated database OK');
+  });
+  navigator.notification.alert("onMapReady");
+>>>>>>> a6c690db4564d2064dd1116af51247e1191f8cf0
   var div = document.getElementById("divMap");
   map =plugin.google.maps.Map.getMap(div);
 
@@ -84,12 +99,18 @@ function onAddHomeClicked(){
   mark.getPosition(function(position){
     homePosition=position;
     db.transaction(function(tx){
+<<<<<<< HEAD
         //  tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
         //  tx.executeSql('INSERT INTO config VALUES (?, ?, ?, ?, ?, ?)', [position.coords.latitude, position.coords.longitude,'Juan','Zheng','6642879876','123456789' ]);
+=======
+    //     tx.executeSql('CREATE TABLE IF NOT EXISTS config (home_lat, home_lng, nombre, apellido, tel1, tel2)');
+         tx.executeSql('INSERT INTO config VALUES (?,?,?,?,?,?)', [homePosition.lat, homePosition.lng, 'Juan', 'Zheng', '6642879876', '123456789' ]);
+>>>>>>> a6c690db4564d2064dd1116af51247e1191f8cf0
         //  tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
       },
       function(error) {
          console.log('Transaction ERROR: ' + error.message);
+<<<<<<< HEAD
          navigator.notification.alert('Error');
       },
       function() {
@@ -104,7 +125,23 @@ function onAddHomeClicked(){
         //
         // });
     });
+=======
+          navigator.notification.alert('Error');
+      },
+      function() {
+        navigator.notification.alert('addhome select');
+    });    
+>>>>>>> a6c690db4564d2064dd1116af51247e1191f8cf0
   });
+    
+    
+    db.transaction(function(tx){    
+        //tx.executeSql('SELECT * FROM config', [], function(tx, rs) {
+          //alert('Record count (expected to be 2): ' + rs);
+    alert('select');    
+    }, function(tx, error) {
+            alert('SELECT error: ' + error.message);
+        });
 
 }
 
