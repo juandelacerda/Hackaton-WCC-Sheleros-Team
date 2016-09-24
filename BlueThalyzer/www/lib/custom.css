@@ -1,0 +1,88 @@
+.main {
+    background: url('../img/bg.png') repeat right !important;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover !important;         /* Generic*/
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.success {
+    background: url('../img/success.png') repeat right !important;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover !important;         /* Generic*/
+
+}
+
+.error {
+    background: url('../img/warning.png') repeat right !important;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover !important;         /* Generic*/
+
+}
+
+.main > div, .success > div, .error > div {
+    color: #fff;
+    text-align: center;
+    font-size: 32pt;
+    line-height: 100%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: -11px;
+    margin-left: -11px;
+
+}
+
+.error > div {
+    background: url('../img/no-driving.png') no-repeat center !important;
+    background-size: 160px 160px !important;    
+}
+
+.success > div {
+    background: url('../img/green-car.png') no-repeat center !important;
+    /*background-size: 160px 160px !important;*/    
+}
+
+.success > div > p {
+    background: url('../img/output-bg.png');
+    font-size: 50pt;
+    width: 100%;
+    line-height: 100%;
+
+
+}
+
+.error > div > p{
+    background: url('../img/output-bg.png');
+    font-size: 50pt;
+    width: 100%;
+    margin: 0;
+    line-height: 100%;
+}
+
+img {
+    width:100px !important;
+    height:100px !important;
+    vertical-align: middle;
+}
+
+.config {
+    background: url('../img/bg.png') repeat center!important;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover !important;         /* Generic*/
+
+}
+
+.mini {
+    font-size: 16pt;
+    line-height: 80% !important;
+}

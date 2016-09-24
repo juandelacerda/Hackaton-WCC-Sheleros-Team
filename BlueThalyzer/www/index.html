@@ -1,49 +1,96 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
+<!--HTML5 doctype-->
 <html>
-    <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+
+<head>
+
+    <title>Tab View Template</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />
+    <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />
+    <link rel="stylesheet" type="text/css" href="lib/custom.css" />
+
+    <script type="text/javascript" charset="utf-8" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>  
+
+	
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+</head>
+
+<body>
+
+    <div id="splashscreen" class='ui-loader heavy'>
+        Bluethalyzer
+        <br>
+        <br>
+        <span class='ui-icon ui-icon-loading spin'></span>
+        <h1>Cargando...</h1>
+    </div>
+
+    <div class="view">
+        <header>
+            <h1>Bluethalyzer</h1>
+        </header>
+
+        <div class="pages">
+
+            <!--Tab View Pages-->
+            <div class="panel main" data-title="Bluethalyzer" id="tab1" data-selected="true">
+                <div>Sopla<br/><br/>
+                <a href="#case0" onclick="$.afui.clearHistory()"><img src="img/breath.png"/></a>   
+
+                </div>
             </div>
+            
+            <div class="panel main" data-title="Bluethalyzer" id="case0">
+                <div>Evaluando nivel de alcohol<br/><br/>
+                    <a href="#case1" onclick="$.afui.clearHistory()"><img src="img/loading.gif"/></a>   
+
+                </div>
+            </div>
+            <div class="panel success" data-title="Bluethalyzer" id="case1">
+                <div>Su nivel de alcohol es:<br/><br/>
+                    <p>0.01</p>
+                    <br/>
+                    <span class="mini">Puede conducir su vehículo.</span>
+                </div>
+            </div>
+            <div class="panel error" data-title="Bluethalyzer" id="case2">
+                <div>Su nivel de alcohol es:<br/><br/>
+                <p>0.08</p>
+                <br/>
+                <span class="mini">Esperar X hrs, Y min para poder manejar.</span>
+                </div>
+            </div>
+
+            <div class="panel config" data-title="Configuración" id="tab2">
+                <br/>
+                <input name="nombre" type="text" placeholder="Nombre del titular" />                 
+                <br>
+                <input name="nombre" type="text" placeholder="Número tel. / Referencia 1" />  
+                <input name="nombre" type="text" placeholder="Número tel. / Referencia 2" />  
+
+                <a class="button block" href="#" id="login">Guardar cambios</a>
+            </div>            
+            
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
+
+        <footer>
+            <a href="#tab1" class="icon warning" onclick="$.afui.clearHistory()">Bluethalyzer</a>
+            <a href="#tab2" class="icon settings" onclick="$.afui.clearHistory()">Configuración</a>
+        </footer>
+    </div>
+
+
+</body>
+
 </html>
